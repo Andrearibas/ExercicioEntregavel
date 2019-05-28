@@ -2,7 +2,7 @@ public class Professor {
 
     private String nome;
     private String sobrenome;
-    private Integer tempoDeCasa;
+    private int tempoDeCasa;
     private Integer codigoDeProfessor;
 
 

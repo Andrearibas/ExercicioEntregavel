@@ -10,76 +10,86 @@ public class DigitalHouseManager {
     private List<Matricula> listaDeMatriculas = new ArrayList<>();
 
 
-    public void registrarCurso(String nome, Integer codigoCurso, Integer quantidadeMaximaDeAlunos){
+    public void registrarCurso(String nome, Integer codigoCurso, Integer quantidadeMaximaDeAlunos) {
         Curso curso = new Curso();
         curso.setNome(nome);
         curso.setCodigoDoCurso(codigoCurso);
         curso.setQuantidadeMaximaAluno(quantidadeMaximaDeAlunos);
         listaDeCursos.add(curso);
-        System.out.println(curso+"\nCurso cadastrado com Sucesso");
+        System.out.println(curso + "\nCurso cadastrado com Sucesso");
         System.out.println("********************************");
     }
 
-    public void excluirCurso(Integer codigoCurso){
+    public void excluirCurso(Integer codigoCurso) {
         listaDeCursos.remove(listaDeCursos.get(codigoCurso));
-        System.out.println(codigoCurso+"\nCurso excluido!");
+        System.out.println(codigoCurso + "\nCurso excluido!");
     }
 
-    public void registrarProfAdjunto(String nome, String sobrenome, Integer codigoProfessor, Integer quantidadeHoras,Integer tempoDeCasa){
+    public void registrarProfAdjunto(String nome, String sobrenome, Integer codigoProfessor, Integer quantidadeHoras) {
         ProfessorAdjunto profAdjunto = new ProfessorAdjunto();
         profAdjunto.setNome(nome);
         profAdjunto.setSobrenome(sobrenome);
         profAdjunto.setCodigoDeProfessor(codigoProfessor);
         profAdjunto.setQuantidadeHoras(quantidadeHoras);
-        profAdjunto.setTempoDeCasa(tempoDeCasa);
         listaDeProfessores.add(profAdjunto);
-        System.out.println(profAdjunto+"\nProfessor Registrado com Sucesso!");
+        System.out.println(profAdjunto + "\nProfessor Registrado com Sucesso!");
         System.out.println("********************************");
     }
 
-    public void registrarProfTitular(String nome, String sobrenome, Integer codigoProfessor, String especialidade,Integer tempoDeCasa){
+    public void registrarProfTitular(String nome, String sobrenome, Integer codigoProfessor, String especialidade) {
         ProfessorTitular professorTitular = new ProfessorTitular();
         professorTitular.setNome(nome);
         professorTitular.setSobrenome(sobrenome);
         professorTitular.setCodigoDeProfessor(codigoProfessor);
         professorTitular.setEspecialidade(especialidade);
-        professorTitular.setTempoDeCasa(tempoDeCasa);
 
         listaDeProfessores.add(professorTitular);
-        System.out.println(professorTitular+"\nProfessor Registrado com Sucesso!");
+        System.out.println(professorTitular + "\nProfessor Registrado com Sucesso!");
         System.out.println("********************************");
     }
 
-    public void excluirProfessor(Integer codigoProfessor){
+    public void excluirProfessor(Integer codigoProfessor) {
         listaDeProfessores.remove(listaDeProfessores.get(codigoProfessor));
-        System.out.println(codigoProfessor+"\nProfessor excluido com Sucesso!");
+        System.out.println(codigoProfessor + "\nProfessor excluido com Sucesso!");
         System.out.println("********************************");
     }
 
-    public void registrarAluno(String nome, String sobrenome, Integer codigoAluno){
-        Aluno aluno = new Aluno(nome,sobrenome,codigoAluno);
+    public void registrarAluno(String nome, String sobrenome, Integer codigoAluno) {
+        Aluno aluno = new Aluno(nome, sobrenome, codigoAluno);
         listaDeAlunos.add(aluno);
-        System.out.println(aluno+"\nAluno registrado na lista com Sucesso!");
+        System.out.println(aluno + "\nAluno registrado na lista com Sucesso!");
         System.out.println("********************************");
 
     }
 
-    public Aluno getAlunoPorCodigo( Integer codigo) {
+    public Aluno getAlunoPorCodigo(Integer codigo) {
         for (Aluno aluno : listaDeAlunos) {
-            if (aluno.getCodigoDeAluno() .equals(codigo)){
+            if (aluno.getCodigoDeAluno().equals(codigo)) {
                 return aluno;
             }
-        } return null;
+        }
+        return null;
     }
 
-    public Curso getCursoPorCodigo(Integer codigo){
+    public Curso getCursoPorCodigo(Integer codigo) {
         for (Curso curso : listaDeCursos) {
             //verificar com tadashi pq nao aceitou ==
-            if (curso.getCodigoDoCurso().equals(codigo)){
+            if (curso.getCodigoDoCurso().equals(codigo)) {
                 return curso;
             }
-        } return null;
+        }
+        return null;
     }
+
+    public Curso getCursoPorCodigoDoAluno(Integer codigoAluno) {
+
+            for (Matricula matricula : listaDeMatriculas) {
+                if (matricula.getAluno().getCodigoDeAluno().equals(codigoAluno)) {
+                    return matricula.getCurso();
+                }
+            }return null;
+        }
+
 
     public Professor getProfessorPorCodigo(Integer codigo){
         for (Professor professor : listaDeProfessores) {
@@ -104,6 +114,7 @@ public class DigitalHouseManager {
             System.out.println("******************************************");
         }
     }
+
 
     public void alocarProfessores(Integer codigoCurso, Integer codigoProfessorTitular, Integer codigoProfessorAdjunto){
         ProfessorTitular titular = (ProfessorTitular) getProfessorPorCodigo(codigoProfessorTitular);
